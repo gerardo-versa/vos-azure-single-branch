@@ -18,10 +18,6 @@ variable "location" {
   description = "Location where Versa Head End setup to be deployed."
 }
 
-variable "count1" {
-  description = "Number of FlexVNFs to be deployed on Azure in single region."
-}
-
 variable "resource_group" {
   description = "Name of the resource group in which Versa Head End setup will be deployed."
   default = "Versa_FlexVNF_RG"
@@ -29,18 +25,6 @@ variable "resource_group" {
 
 variable "ssh_key" {
   description = "SSH Key to be injected into VMs deployed on Azure."
-}
-
-variable "mgmt_subnet" {
-  description = "Management Subnet ID which will be used to create the Interfaces on Management Subnet."
-}
-
-variable "wan_subnet" {
-  description = "WAN network Subnet which will be used to create the WAN network Interface."
-}
-
-variable "lan_subnet" {
-  description = "LAN network Subnet which will be used to create the LAN network Interfaces."
 }
 
 variable "image_flexvnf" {
@@ -52,7 +36,42 @@ variable "vm_name" {
   default = "Versa_FlexVNF"
 }
 
+variable "vnet_name" {
+  description  = "Name for the VNET to be deployed"
+}
+
+variable "vnet_address_space" {
+  description = "Adress space to be used by the VNET"
+}
+
+variable "mgmt_address_space" {
+  description = "Adress space to be used by the MGMT Subnet. Must be a subnet inside of the VNET address space"
+}
+
+variable "wan_address_space" {
+  description = "Adress space to be used by the WAN Subnet. Must be a subnet inside of the VNET address space"
+}
+
+variable "lan_address_space" {
+  description = "Adress space to be used by the LAN Subnet. Must be a subnet inside of the VNET address space"
+}
+
 variable "flexvnf_vm_size" {
   description = "Size of Versa FlexVNF-1 Router VM."
   default = "Standard_DS3"
+}
+
+variable "local_authentication_id" {
+  description = "local authentication for staging script"
+  default = "Controller-01-staging@Versa-networks.com"
+}
+
+variable "remote_authentication_id" {
+  description = "remote authentication for staging script"
+  default = "SDWAN-Branch@Versa.com"
+}
+
+variable "serial_number" {
+  description = "appliance serial number"
+  default = "branch02"
 }

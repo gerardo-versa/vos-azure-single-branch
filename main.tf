@@ -28,8 +28,8 @@ resource "azurerm_resource_group" "versa_rg" {
 
 #Create virtual network
 resource "azurerm_virtual_network" "TFNet" {
-    name                = "Gerardo-VNET"
-    address_space       = ["10.60.0.0/16"]
+    name                = var.vnet_name
+    address_space       = [var.vnet_address_space]
     location            = var.location
     resource_group_name = azurerm_resource_group.versa_rg.name
 
@@ -43,19 +43,19 @@ resource "azurerm_subnet" "tfsubnet" {
     name                 = "MGMT-Subnet"
     resource_group_name = azurerm_resource_group.versa_rg.name
     virtual_network_name = azurerm_virtual_network.TFNet.name
-    address_prefix       = "10.60.1.0/24"
+    address_prefix       = var.mgmt_address_space
 }
 resource "azurerm_subnet" "tfsubnet2" {
     name                 = "WAN-Subnet"
     resource_group_name = azurerm_resource_group.versa_rg.name
     virtual_network_name = azurerm_virtual_network.TFNet.name
-    address_prefix       = "10.60.2.0/24"
+    address_prefix       = var.wan_address_space
 }
 resource "azurerm_subnet" "tfsubnet3" {
     name                 = "LAN-Subnet"
     resource_group_name = azurerm_resource_group.versa_rg.name
     virtual_network_name = azurerm_virtual_network.TFNet.name
-    address_prefix       = "10.60.3.0/24"
+    address_prefix       = var.lan_address_space
 }
 
 
@@ -65,6 +65,9 @@ data "template_file" "user_data_flexvnf" {
   
   vars = {
     sshkey = var.ssh_key
+    localauth = var.local_authentication_id
+    remoteauth = var.remote_authentication_id
+    serialnum = var.serial_number
   }
 }
 
@@ -155,7 +158,7 @@ resource "azurerm_network_interface" "flexvnf_nic_1" {
 	
     ip_configuration {
         name                          = "FlexVNF_NIC1_Configuration"
-        subnet_id                     = var.mgmt_subnet
+        subnet_id                     = azurerm_subnet.tfsubnet.id
         private_ip_address_allocation = "dynamic"
         public_ip_address_id          = azurerm_public_ip.ip_flexvnf_mgmt.id
     }
@@ -174,7 +177,7 @@ resource "azurerm_network_interface" "flexvnf_nic_2" {
 	
     ip_configuration {
         name                          = "FlexVNF_NIC2_Configuration"
-        subnet_id                     = var.wan_subnet
+        subnet_id                     = azurerm_subnet.tfsubnet2.id
         private_ip_address_allocation = "dynamic"
         public_ip_address_id          = azurerm_public_ip.ip_flexvnf_wan.id
 
@@ -194,7 +197,7 @@ resource "azurerm_network_interface" "flexvnf_nic_3" {
 	
     ip_configuration {
         name                          = "FlexVNF_NIC3_Configuration"
-        subnet_id                     = var.lan_subnet
+        subnet_id                     = azurerm_subnet.tfsubnet3.id
         private_ip_address_allocation = "dynamic"
     }
 
