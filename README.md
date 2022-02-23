@@ -41,18 +41,11 @@ User-defined input variables that are used to populate the Terraform templates. 
 *   location—Enter the string that identifies the VOS device location. For example, west-us or west-europe.
 *   resource_group—Name of the resource group in which to place the resources for the VOS device. The default is Versa_FlexVNF_RG.
 *   ssh_key—SSH public key. This key is required to log in to the VOS instances. To generate the SSH key, use the sshkey-gen or putty key generator command. You cannot generate keys within Azure.
-*   mgmt_subnet—Management subnet ID used to create interfaces on the management subnet.
-*   wan_subnet—Subnet of the WAN network used to to create the WAN network interface.
-*   lan_subnet—Subnet of the LAN network used to create the LAN network interfaces.
 *   vm_name—Name of the VM that is displayed in the VM list of the Azure Portal. The default is Versa_FlexVNF.
 *   flexvnf_vm_size—Instance type and size used to provision the FlexVNF-1 VM. The default is Standard_F4s.
-*   controller_wan_ip—WAN IP of the Controller device used for staging with the branch. This can be a private IP address or a public IP address where the branch can reach the Controller device.
-*   local_auth—Local authentication at the branch used for staging.
-*   remote_auth—Remote authentication to use for staging. This is Controller-side authentication key used during staging of the branch.
-*   branch_serial_num—Serial number of branch to be set. This must be the same as the serial number that is provided during the corresponding Workflow device deployment in Versa Director.
-*   branch_wan_nic—Indicates the port number of WAN port. To use vni-0/0 as the branch WAN interface or port, the value must be 0; to use vni-0/1, the value must be 1; and so on. The default is 0.
-*   director_northboud_ip—Northbound IP address of the Director node.
-*   director_southboud_ip—Southbound IP address of the Director node.
+*   local_authentication_id authentication at the branch used for staging.
+*   local_authentication_id authentication to use for staging. This is Controller-side authentication key used during staging of the branch.
+*   serial_num number of branch to be set. This must be the same as the serial number that is provided during the corresponding Workflow device deployment in Versa Director.
 
 </td>
 
