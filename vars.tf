@@ -75,3 +75,11 @@ variable "serial_number" {
   description = "appliance serial number"
   default = "branch02"
 }
+
+variable "controller_ip" {
+  description = "Controller WAN IP used for staging"
+}
+
+variable "director_sb_ip" {
+  description = "Director Southbound IP"
+}
