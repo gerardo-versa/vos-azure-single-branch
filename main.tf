@@ -68,6 +68,8 @@ data "template_file" "user_data_flexvnf" {
     localauth = var.local_authentication_id
     remoteauth = var.remote_authentication_id
     serialnum = var.serial_number
+    controllerip = var.controller_ip
+    dirip = var.director_sb_ip
   }
 }
 
